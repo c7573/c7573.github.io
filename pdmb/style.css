@@ -28,3 +28,14 @@ body{font-size:16px;line-height:1.8}.sidebar{background:linear-gradient(180deg,#
 .org-grid .department b{display:block;min-width:0;margin:0 0 3px;font-size:14px;}
 .org-grid .department span{display:block;font-size:13px;line-height:1.7;}
 @media(max-width:760px){.org-grid .department{display:block;}.org-grid .department b{display:block;}.org-grid .department span{display:block;}}
+
+@media (max-width: 760px) {
+  .org-grid { grid-template-columns: 1fr !important; }
+  .org-grid .org-card {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+  .org-grid .org-card > p { max-width: none; }
+}
