@@ -2,7 +2,6 @@ const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelect
 function updateClock(){const d=new Date();$('#clock').textContent=[d.getHours(),d.getMinutes(),d.getSeconds()].map(x=>String(x).padStart(2,'0')).join(':')};updateClock();setInterval(updateClock,1000);
 const sidebar=$('#sidebar'),overlay=$('#mobileOverlay');function closeMenu(){sidebar.classList.remove('open');overlay.classList.remove('show')};$('#menuToggle')?.addEventListener('click',()=>{sidebar.classList.toggle('open');overlay.classList.toggle('show')});overlay?.addEventListener('click',closeMenu);
 $$('.nav-link').forEach(a=>a.addEventListener('click',()=>{ $$('.nav-link').forEach(x=>x.classList.remove('active'));a.classList.add('active');$('#crumb').textContent=a.dataset.nav.toUpperCase();closeMenu()}));
-let activeFilter='all';const search=$('#docSearch');function filterRecords(){let n=0;const q=search.value.trim().toLowerCase();$$('.record-card').forEach(c=>{const ok=(activeFilter==='all'||c.dataset.category===activeFilter)&&(!q||(c.dataset.search+' '+c.innerText).toLowerCase().includes(q));c.hidden=!ok;if(ok)n++});$('#resultCount').textContent=n;$('#emptyState').hidden=n!==0};search?.addEventListener('input',filterRecords);$$('.filter-row .filter-btn').forEach(b=>b.addEventListener('click',()=>{$$('.filter-row .filter-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');activeFilter=b.dataset.filter;filterRecords()}));
 const people=[
 ['director','관리국장','관리국장','해무진','관리국장 · 무상급','한국','불명','ISTJ · 1w9 · 질서악','무뚝뚝 · 유연성 결핍 · 고독','압도적 위압감','검은 정장 · 흰 셔츠 · 흑단발 · 흑안 · 우안 실명 · 초장신 · 근육 · 수염','용광검 · 주야일과','haemujin.webp'],
 ['division1','제1대응단','제1대응단장','신서연','제1대응단장 · 천재급','한국','30','ESTJ · 1w2 · 질서선','인본주의 · 책임감 중시 · 겉당당, 속여린 이중성','서투른 연애지식 · 정 많음','금발 웨이브 · 적안 · 글래머 · 흰 셔츠 · 검은 스커트 · 스타킹 · 하이힐','청염칠선 · 태극','sinseoyeon.webp'],
@@ -26,4 +25,31 @@ const people=[
 ];
 const groups={director:['관리국장','DIRECTORATE'],division1:['제1대응단','FIRST RESPONSE DIVISION'],division2:['제2관리단','SECOND ADMINISTRATION DIVISION'],division3:['제3정보단','THIRD INTELLIGENCE DIVISION'],audit:['감사위원회','AUDIT COMMITTEE'],special:['특수방위별원','SPECIAL DEFENSE UNIT']};let activePeople='all';
 function renderPeople(){const host=$('#personnelGroups');host.innerHTML='';(activePeople==='all'?Object.keys(groups):[activePeople]).forEach(key=>{const data=people.filter(p=>p[0]===key);if(!data.length)return;const sec=document.createElement('section');sec.className='person-group';const hd=document.createElement('header');hd.className='person-group-head';hd.innerHTML=`<div><small>${groups[key][1]}</small><h3>${groups[key][0]}</h3></div>`;sec.append(hd);[...new Set(data.map(p=>p[2]))].forEach(unit=>{const sub=document.createElement('div');sub.className='person-subgroup';const h=document.createElement('h4');h.textContent=unit;sub.append(h);const grid=document.createElement('div');grid.className='person-cards';data.filter(p=>p[2]===unit).forEach(p=>{const card=document.createElement('article');card.className='person-card';const img=document.createElement('img');img.className='person-photo';img.src='images/characters/'+p[12];img.alt=p[3]+' 인물 이미지';img.loading='lazy';img.onerror=()=>{const f=document.createElement('div');f.className='person-photo fallback';f.textContent=p[3].slice(0,1);img.replaceWith(f)};const info=document.createElement('div');info.className='person-info';info.innerHTML=`<small>${p[5]} · ${p[6]}세 · ${p[7]}</small><h5>${p[3]}</h5><div class="person-role">${p[4]}</div><p>${p[8]} · ${p[9]}</p><p class="person-detail">외형: ${p[10]}</p><p class="person-detail">주령기·권능: ${p[11]}</p>`;card.append(img,info);grid.append(card)});sub.append(grid);sec.append(sub)});host.append(sec)})}renderPeople();$$('#personFilters .filter-btn').forEach(b=>b.addEventListener('click',()=>{$$('#personFilters .filter-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');activePeople=b.dataset.group;renderPeople()}));
-const ids=['home','organization','response','phenomena','positions','personnel'];const observer=new IntersectionObserver(entries=>{const v=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(!v)return;$$('.nav-link').forEach(a=>a.classList.toggle('active',a.dataset.nav===v.target.id));$('#crumb').textContent=v.target.id.toUpperCase()},{rootMargin:'-18% 0px -65% 0px',threshold:[0,.15,.35]});ids.forEach(id=>{const el=document.getElementById(id);if(el)observer.observe(el)});
+const ids=['home','agency-overview','organization','response','phenomena','positions','personnel','anomalies'];const observer=new IntersectionObserver(entries=>{const v=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(!v)return;$$('.nav-link').forEach(a=>a.classList.toggle('active',a.dataset.nav===v.target.id));$('#crumb').textContent=v.target.id.toUpperCase()},{rootMargin:'-18% 0px -65% 0px',threshold:[0,.15,.35]});ids.forEach(id=>{const el=document.getElementById(id);if(el)observer.observe(el)});
+
+
+// Named anomalous entities grouped by the threat grade recorded in info.txt.
+const anomalies=[
+ {grade:'소재급',name:'수살귀',country:'한국 · 중국 · 일본',summary:'물귀신'},
+ {grade:'소재급',name:'부속귀',country:'한국 · 중국 · 일본',summary:'물건에 붙은 악령'},
+ {grade:'중재급',name:'서투른 장례지도사',country:'대한민국',summary:'거울 뒤 악령'},
+ {grade:'중재급',name:'상상친구',country:'일본',summary:'인지형 악령'},
+ {grade:'대재급',name:'광조',country:'한국',summary:'잊혀진 조선의 왕 · 언데드'},
+ {grade:'대재급',name:'진혼촌인',country:'중국',summary:'수많은 영혼의 집합'},
+ {grade:'천재급',name:'아귀불',country:'중국',summary:'번뇌의 현현'},
+ {grade:'천재급',name:'13번째 구세주',country:'한국',summary:'흑염소 머리 · 사제'},
+ {grade:'천재급',name:'츠쿠모가미',country:'일본',summary:'살점덩어리'},
+ {grade:'무상급',name:'무명',country:'한국',summary:'봉인된 태고의 괴이'}
+];
+function renderAnomalies(){
+ const host=$('#anomalyGroups');if(!host)return;host.innerHTML='';
+ ['소재급','중재급','대재급','천재급','무상급'].forEach((grade,i)=>{
+  const list=anomalies.filter(a=>a.grade===grade);if(!list.length)return;
+  const section=document.createElement('section');section.className='person-group';
+  const head=document.createElement('header');head.className='person-group-head';head.innerHTML=`<div><small>THREAT CLASS / 0${i+1}</small><h3>${grade}</h3></div>`;section.append(head);
+  const sub=document.createElement('div');sub.className='person-subgroup';const grid=document.createElement('div');grid.className='person-cards';
+  list.forEach(a=>{const card=document.createElement('article');card.className='person-card';const emblem=document.createElement('div');emblem.className='person-photo fallback';emblem.textContent=a.name.slice(0,1);const info=document.createElement('div');info.className='person-info';info.innerHTML=`<small>ANOMALOUS ENTITY · ${a.country}</small><h5>${a.name}</h5><div class="person-role">${a.grade}</div><p>${a.summary}</p>`;card.append(emblem,info);grid.append(card)});
+  sub.append(grid);section.append(sub);host.append(section);
+ });
+}
+renderAnomalies();
