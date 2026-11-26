@@ -21,5 +21,13 @@ body{font-size:16px;line-height:1.8}.sidebar{background:linear-gradient(180deg,#
 
 /* Place the audit committee directly beneath the director. */
 .org-top-row{grid-template-columns:1fr;gap:0;justify-items:center}.org-top-row .org-root{position:relative;max-width:390px;width:100%;min-height:140px}.org-top-row .org-root:after{content:"";position:absolute;left:50%;bottom:-21px;width:1px;height:21px;background:var(--gold)}.org-top-row .org-audit{position:relative;max-width:660px;width:100%;margin:21px auto 0}.org-top-row .org-audit:before{content:"";position:absolute;left:50%;top:-21px;width:1px;height:21px;background:var(--gold);display:block}
-@media(max-width:760px){.org-top-row .org-root{max-width:100%}.org-top-row .org-audit{max-width:100%}}
-.org-grid { grid-template-columns: 1fr !important; }
+@media(max-width:760px){.org-top-row .org-root{max-width:100%}.org-top-row .org-audit{max-width:100%}}.
+/* 카드 안쪽을 세로 1 2 3 4 순서로 */
+org-grid { grid-template-columns: 1fr !important; }
+.org-grid .org-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+}.
+org-grid .org-card > p { max-width: none; }.
