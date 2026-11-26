@@ -41,9 +41,11 @@ const anomalies=[
  {grade:'천재급',name:'츠쿠모가미',country:'일본',summary:'살점덩어리'},
  {grade:'무상급',name:'무명',country:'한국',summary:'봉인된 태고의 괴이'}
 ];
+let activeAnomalyGrade='all';
 function renderAnomalies(){
  const host=$('#anomalyGroups');if(!host)return;host.innerHTML='';
- ['소재급','중재급','대재급','천재급','무상급'].forEach((grade,i)=>{
+ (activeAnomalyGrade==='all'?['소재급','중재급','대재급','천재급','무상급']:[activeAnomalyGrade]).forEach(grade=>{
+  const i=['소재급','중재급','대재급','천재급','무상급'].indexOf(grade);
   const list=anomalies.filter(a=>a.grade===grade);if(!list.length)return;
   const section=document.createElement('section');section.className='person-group';
   const head=document.createElement('header');head.className='person-group-head';head.innerHTML=`<div><small>THREAT CLASS / 0${i+1}</small><h3>${grade}</h3></div>`;section.append(head);
@@ -53,3 +55,7 @@ function renderAnomalies(){
  });
 }
 renderAnomalies();
+$$('#anomalyFilters .filter-btn').forEach(button=>button.addEventListener('click',()=>{
+ $$('#anomalyFilters .filter-btn').forEach(item=>item.classList.remove('active'));
+ button.classList.add('active');activeAnomalyGrade=button.dataset.grade;renderAnomalies();
+}));
