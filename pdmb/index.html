@@ -7,6 +7,7 @@
   <meta name="description" content="괴이재난관리국 내부 데이터베이스 — 조직, 대응 체계, 초자연 현상 기록">
   <title>괴이재난관리국 | 중앙 데이터베이스</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="character-cards.css">
 </head>
 <body>
   <div class="app-shell">
@@ -50,7 +51,7 @@
           <div class="eyebrow"><span class="red-line"></span> CLASSIFIED INFORMATION SYSTEM <span class="version">REV. 06</span></div>
           <h1>괴이재난<span>관리국</span></h1>
           <p class="hero-en">ANOMALOUS DISASTER BUREAU</p>
-          <p class="hero-desc">인류의 일상에 침투한 비정상적 현상을 감시하고,<br>그로 인해 발생하는 재난을 통제·관리하는 기관.</p>
+          <p class="hero-desc">인류의 일상을 위협하는 괴이들을 감시하고,<br>그로 인해 발생한 재난을 통제·해결하는 기관.</p>
           <div class="hero-actions">
             <a class="btn-primary" href="#organization">기관 정보 열람 <span>↗</span></a>
             <a class="btn-ghost" href="#response">대응 체계 확인 <span>→</span></a>
@@ -62,7 +63,7 @@
 
       <section class="notice-strip">
         <div class="notice-icon">!</div>
-        <div><strong>열람 유의 사항</strong><p>본 데이터베이스의 일부 기록은 보안 등급에 따라 제한되며, 허가되지 않은 정보의 외부 유출을 금합니다.</p></div>
+        <div><strong>열람 유의 사항</strong><p>본 데이터베이스의 기록은 관계자 외 열람을 제한하며, 허가되지 않은 정보의 외부 유출을 금합니다.</p></div>
         <span class="notice-code">SECURITY NOTICE / 001</span>
       </section>
 
@@ -75,8 +76,8 @@
           <article class="info-panel lead-panel">
             <div class="panel-top"><span>AGENCY PROFILE</span><span class="tag">PUBLIC RECORD</span></div>
             <h3>동양권 괴이 재난을<br>전담하는 국제기구</h3>
-            <p>괴이재난관리국은 동양권의 괴이 재난을 전담하는 국제기구다. 괴이는 초자연적인 현상을 일으켜 인간에게 피해를 끼치는 존재로 정의된다.</p>
-            <p>관리국은 제1대응단·제2관리단·제3정보단과 감사위원회로 구성된다. 본부는 대한민국 경기도 외곽에 위치한다.</p>
+            <p>괴이재난관리국은 동양권의 괴이 재난을 전담하는 국제기구다. 괴이는 초자연적인 현상(재난)을 일으켜 인간에게 피해를 끼치는 존재로 정의된다.
+            </p>
             <div class="panel-foot">EAST ASIAN ANOMALOUS DISASTER INTERNATIONAL ORGANIZATION</div>
           </article>
           <div class="stat-stack">
@@ -91,38 +92,38 @@
         <div class="section-heading"><div><div class="eyebrow">02 / ORGANIZATION STRUCTURE</div><h2>조직 구조</h2><p>3개 단과 1개 위원회, 관리국장 직속 특수방위별원</p></div><span class="section-index">ADB / 02</span></div>
         <div class="org-hierarchy">
           <div class="org-top-row">
-            <div class="org-root"><small>SUPREME AUTHORITY</small><strong>관리국장</strong><span>최고 결정 · 최종 결재 · 단장과 위원장 관리</span></div>
-            <article class="org-card audit-card org-audit"><div class="org-card-title"><span class="org-no">監</span><div><small>INDEPENDENT OVERSIGHT</small><h3>감사위원회</h3></div></div><p>독립적인 권한으로 관리국 내부 감사 및 부패 방지 업무를 담당한다.</p><div class="department"><b>감사·부패 수사</b><span>내부 감사 · 부패 방지</span></div></article>
+            <div class="org-root"><small>SUPREME AUTHORITY</small><strong>관리국장</strong><span>최고 의사결정권자 · 최종 결재 · 단장/위원장 관리</span></div>
+            <article class="org-card audit-card org-audit"><div class="org-card-title"><span class="org-no">監</span><div><small>INDEPENDENT OVERSIGHT</small><h3>감사위원회</h3></div></div><p>독립적인 수사권한으로 관리국 내부 감사 및 부패 방지 업무를 담당한다.</p><div class="department"><b>감사·부패 수사</b><span>내부 감사 · 부패 방지</span></div></article>
           </div>
           <div class="org-branch-label">관리국 산하 3개 단</div>
           <div class="org-grid">
-            <article class="org-card"><div class="org-card-title"><span class="org-no">壹</span><div><small>FIRST RESPONSE DIVISION</small><h3>제1대응단</h3></div></div><p>괴이와 직접 상호작용하며 전투·봉인·구조를 담당한다.</p><div class="department"><b>긴급구조과</b><span>민간인 구조 · 괴이 구축 · 구조 우선</span></div><div class="department"><b>위험종결과</b><span>괴이 봉인 · 처치 · 봉인지 감시 · 처치 우선</span></div></article>
-            <article class="org-card"><div class="org-card-title"><span class="org-no">貳</span><div><small>SECOND ADMINISTRATION DIVISION</small><h3>제2관리단</h3></div></div><p>관리국 내부 업무와 사업·보급 등 운영 기반을 담당한다.</p><div class="department"><b>사무처리과</b><span>행정 · 예산 · 복지 · 보급</span></div><div class="department"><b>인사지원과</b><span>인사 · 신입 교육</span></div></article>
-            <article class="org-card"><div class="org-card-title"><span class="org-no">參</span><div><small>THIRD INTELLIGENCE DIVISION</small><h3>제3정보단</h3></div></div><p>괴이와 간접 상호작용하며 연구·조사·분류를 담당한다.</p><div class="department"><b>조사분류과</b><span>괴이 분석 · 등급 · DB · 초기 현장 조사</span></div><div class="department"><b>연구개발과</b><span>괴이·주술 연구 · 주령기 개발</span></div></article>
+            <article class="org-card"><div class="org-card-title"><span class="org-no">壹</span><div><small>FIRST RESPONSE DIVISION</small><h3>제1대응단</h3></div></div><p>괴이와 직접적으로 상호작용하며, 전투·봉인·구조등의 업무를 담당한다.</p><div class="department"><b>긴급구조과</b><span>괴이로 인해 피해를 입은 민간인을 구조하고, 현장에 고립되거나 위험에 처한 생존자를 안전한 지역으로 이송하는 업무를 담당한다. 괴이와의 교전도 행하지만, 구조를 우선한다.</span></div><div class="department"><b>위험종결과</b><span>괴이와의 직접적인 교전과 봉인, 봉인지 감시등의 업무를 담당한다. 기본적으로 괴이를 제거하여 종결하는 것을 제1목표로한다.</span></div></article>
+            <article class="org-card"><div class="org-card-title"><span class="org-no">貳</span><div><small>SECOND ADMINISTRATION DIVISION</small><h3>제2관리단</h3></div></div><p>관리국 내부의 행정·인사·보급 등, 운영 기반 업무들을 담당한다.</p><div class="department"><b>사무처리과</b><span>관리국의 원활한 운영을 위해 각종 행정 업무와 예산 편성 및 집행, 직원 복지, 물자 보급 업무를 담당한다. 또한, 각 부서의 보고서, 결과서, 활동 기록등의 서류를 접수하고 보관한다.</span></div><div class="department"><b>인사지원과</b><span>관리국 인력들의 인사 관리와 배치, 신규 직원 채용 및 교육 업무를 담당한다. 각 부서의 인력 현황, 업무 수요를 파악하여 적절한 인원을 배정하고, 직원의 근무 이력과 직위 변동, 승진 및 징계 등 인사 관련 기록을 관리한다.</span></div></article>
+            <article class="org-card"><div class="org-card-title"><span class="org-no">參</span><div><small>THIRD INTELLIGENCE DIVISION</small><h3>제3정보단</h3></div></div><p>괴이와 간접적으로 상호작용하며, 연구·조사·분류 등의 업무를 담당한다.</p><div class="department"><b>조사분류과</b><span>괴이의 정보를 조사하고 분석하여 위험성을 파악. 이를 바탕으로 괴이의 등급을 산정하고 관련 정보를 기록·관리하는 업무를 담당한다. 괴이의 출현 경위를 추측하기 위해, 초기 현장 조사 업무도 겸한다.</span></div><div class="department"><b>연구개발과</b><span>괴이의 생태와 초자연적 현상, 주술 및 영력의 작용 원리를 연구하고 이를 기술로 발전시키는 업무를 담당한다. 해당 기술은 주령기의 연구, 설계 및 제작을 위한 자원이 된다.</span></div></article>
           </div>
         </div>
-        <article class="special-unit"><b>特</b><div><small>DIRECTLY UNDER THE DIRECTOR</small><h3>특수방위별원</h3><p>관리국장 직속. 협력영물 배속 · 괴이 자문 · 고위험 현장 투입</p></div><span>국장 직속</span></article>
+        <article class="special-unit"><b>特</b><div><small>DIRECTLY UNDER THE DIRECTOR</small><h3>특수방위별원</h3><p>일반 직원과는 별도의 지위와 권한을 가진 영물들이 소속되어, 괴이 정보 자문 및 고위험 현장에 투입된다.</p></div><span>협력 영물</span></article>
       </section>
 
       <section class="content-section" id="response">
-        <div class="section-heading"><div><div class="eyebrow">03 / CLASSIFICATION</div><h2>등급 체계</h2><p>괴이 등급과 대응 인력 등급은 공용으로 사용한다.</p></div><span class="section-index">ADB / 03</span></div>
-        <div class="grade-intro">등급은 위험도와 피해 범위를 기준으로 구분한다. 아래는 제공된 설정에 명시된 분류 기준이다.</div>
+        <div class="section-heading"><div><div class="eyebrow">03 / CLASSIFICATION</div><h2>등급 체계</h2><p>괴이 등급과 대응 인력 등급은 동일한 분류 체계를 공용으로 사용한다.</p></div><span class="section-index">ADB / 03</span></div>
+        <div class="grade-intro">등급은 해당 존재가 초래할 수 있는 위험성과 피해 규모나, 그에 상응하는 피해를 감당할 수 있는 능력과 대응 역량을 나타낸다.</div>
         <div class="grade-grid">
-          <article><b>材</b><h3>소재급</h3><strong>낮음</strong><p>개인 · 한 가정</p></article>
-          <article><b>中</b><h3>중재급</h3><strong>보통</strong><p>다수 인명 · 시설</p></article>
-          <article><b>大</b><h3>대재급</h3><strong>높음</strong><p>도시 전체</p></article>
-          <article><b>天</b><h3>천재급</h3><strong>매우 높음</strong><p>국가 마비</p></article>
-          <article class="grade-unknown"><b>無</b><h3>무상급</h3><strong>측정 불가</strong><p>집계 불가</p></article>
+          <article><b>材</b><h3>소재급</h3><strong>낮음</strong><p>위험성이 비교적 낮으며, 피해 범위가 개인 또는 한 가정에 국한되는 수준.</p></article>
+          <article><b>中</b><h3>중재급</h3><strong>보통</strong><p>위험성이 상당하며, 다수의 인명이나 여러 시설에 걸쳐 피해를 일으킬 수 있는 수준.</p></article>
+          <article><b>大</b><h3>대재급</h3><strong>높음</strong><p>위험성이 매우 높으며, 피해 범위가 특정 지역을 넘어 도시 전체로 확대될 수 있는 수준.</p></article>
+          <article><b>天</b><h3>천재급</h3><strong>매우 높음</strong><p>국가 단위의 광범위한 피해를 초래할 수 있는 극도로 위험한 수준.</p></article>
+          <article class="grade-unknown"><b>無</b><h3>무상급</h3><strong>측정 불가</strong><p>기존의 위험등급 체계로는 위험성과 영향력을 측정하거나 분류할 수 없는 초월적 수준.</p></article>
         </div>
       </section>
 
       <section class="content-section alt-section" id="phenomena">
         <div class="section-heading"><div><div class="eyebrow">04 / ANOMALOUS CONCEPTS</div><h2>초자연 개념</h2><p>관리국에서 사용하는 네 가지 핵심 용어</p></div><span class="section-index">ADB / 04</span></div>
         <div class="concept-grid">
-          <article class="concept-card"><span>異</span><small>CONCEPT / 01</small><h3>괴이</h3><p>초자연적인 현상을 일으켜 인간에게 피해를 끼치는 존재.</p></article>
-          <article class="concept-card"><span>靈</span><small>CONCEPT / 02</small><h3>협력영물</h3><p>괴이 중 관리국과 우호적인 관계를 맺고 협력하는 존재.</p></article>
-          <article class="concept-card"><span>呪</span><small>CONCEPT / 03</small><h3>주령기</h3><p>특수 능력을 구현하는 매개체. 신체 부위 또는 도구의 형태이며 인간만 보유한다.</p></article>
-          <article class="concept-card"><span>權</span><small>CONCEPT / 04</small><h3>권능</h3><p>존재에 귀속된 초월적 능력. 괴이와 협력영물은 기본 소유하며, 인간은 주령기를 오래 사용하거나 깨달음을 얻으면 획득한다.</p></article>
+          <article class="concept-card"><span>異</span><small>CONCEPT / 01</small><h3>괴이</h3><p>초자연적인 현상을 일으켜, 인간에게 피해를 주는 존재들.</p></article>
+          <article class="concept-card"><span>靈</span><small>CONCEPT / 02</small><h3>협력영물</h3><p>괴이 중 관리국과 우호적인 관계를 맺고 협력하는 존재들.</p></article>
+          <article class="concept-card"><span>呪</span><small>CONCEPT / 03</small><h3>주령기</h3><p>인간들의 특수한 영능력을 구현해주는 매개체. 신체 부위 또는 도구의 형태이다.</p></article>
+          <article class="concept-card"><span>權</span><small>CONCEPT / 04</small><h3>권능</h3><p>존재에 귀속된 초월적 능력. 괴이와 협력영물은 기본 소유하며, 인간은 주령기를 오래 사용하거나 깨달음을 얻으면 획득 할 수 있다.</p></article>
         </div>
       </section>
 
@@ -135,7 +136,7 @@
           <article><b>03</b><div><h3>과장 · 수사관</h3><small>지휘등급</small></div><p>실무 독립 권한</p></article>
           <article><b>04</b><div><h3>단장 · 위원장</h3><small>운영등급</small></div><p>직속 하위조직 총괄 관리</p></article>
           <article><b>05</b><div><h3>관리국장</h3><small>최고등급</small></div><p>최고 결정 · 최종 결재 · 단장과 위원장 관리</p></article>
-          <article class="position-spirit"><b>靈</b><div><h3>협력영물</h3><small>기밀등급</small></div><p>괴이 자문 · 현장 투입</p></article>
+          <article class="position-spirit"><b>靈</b><div><h3>협력영물</h3><small>특수등급</small></div><p>괴이 자문 · 고위험 현장 투입</p></article>
         </div>
       </section>
       <section class="content-section" id="personnel">

@@ -3,7 +3,7 @@ function updateClock(){const d=new Date();$('#clock').textContent=[d.getHours(),
 const sidebar=$('#sidebar'),overlay=$('#mobileOverlay');function closeMenu(){sidebar.classList.remove('open');overlay.classList.remove('show')};$('#menuToggle')?.addEventListener('click',()=>{sidebar.classList.toggle('open');overlay.classList.toggle('show')});overlay?.addEventListener('click',closeMenu);
 $$('.nav-link').forEach(a=>a.addEventListener('click',()=>{ $$('.nav-link').forEach(x=>x.classList.remove('active'));a.classList.add('active');$('#crumb').textContent=a.dataset.nav.toUpperCase();closeMenu()}));
 const people=[
-['director','관리국장','관리국장','해무진','관리국장 · 무상급','한국','불명','ISTJ · 1w9 · 질서악','무뚝뚝 · 유연성 결핍 · 고독','압도적 위압감','검은 정장 · 흰 셔츠 · 흑단발 · 흑안 · 우안 실명 · 초장신 · 근육 · 수염','용광검 · 주야일과','haemujin.webp'],
+['director','관리국장','관리국장','해무진','관리국장 · 무상급','한국','불명','ISTJ · 1w9 · 질서악','무뚝뚝 · 유연성 결핍 · 고독','압도적 위압감','검은 정장 · 흰 셔츠 · 흑단발 · 흑안 · 우안 실명 · 초장신 · 근육 · 수염','용광검 · 주야일과','a.png'],
 ['division1','제1대응단','제1대응단장','신서연','제1대응단장 · 천재급','한국','30','ESTJ · 1w2 · 질서선','인본주의 · 책임감 중시 · 겉당당, 속여린 이중성','서투른 연애지식 · 정 많음','금발 웨이브 · 적안 · 글래머 · 흰 셔츠 · 검은 스커트 · 스타킹 · 하이힐','청염칠선 · 태극','sinseoyeon.webp'],
 ['division1','제1대응단','긴급구조과','최유건','긴급구조과장 · 대재급','한국','29','ESFJ · 2w1 · 중립선','유쾌 · 능글 · 활달 · 인본주의','긴장 푸는 농담 · 웃는 얼굴의 압박 · 격식 없음','갈색 단발 · 청안 · 근육 · 장신 · 소매 걷은 흰 셔츠 · 검은 Y자 멜빵 · 슬랙스','칠성칼 · 명경지수','choiyugeon.webp'],
 ['division1','제1대응단','위험종결과','류선','위험종결과장 · 대재급','한국','27','ISTJ · 1w9 · 질서악','반말 · 직설 · 짜증 · 츤데레','봉인 전문 · 류연의 쌍둥이 언니','흑장발 · 적안 · 날카로운 인상 · 흰 셔츠 · 검은 재킷 · 검은 넥타이','무한다면각체 · 부동','ryuseon.webp'],
@@ -23,8 +23,85 @@ const people=[
 ['special','특수방위별원','협력영물','황운','협력영물(황룡) · 천재급','중국','불명','ENTJ · 8w9 · 질서중립','오만 · 위엄 · 탐욕','반말 · 거만한 말투 · 시적 표현','금단발 · 금안 · 황금 용뿔 · 블랙 3피스 · 금 넥타이핀 · 손목시계','비룡승운 · 천하귀일','huangyun.webp'],
 ['special','특수방위별원','협력영물','사쿠야','협력영물(구미호) · 천재급','일본','불명','ENTP · 7w8 · 혼돈중립','요염 · 유혹 · 뻔뻔','매도 · 비유 · 거짓말 섞기','분홍 장발 · 적안 · 여우 귀 · 아홉 개 흰 꼬리 · 흰/붉은 기모노 · 금 칸자시','천연매심 · 구미환천','sakuya.webp']
 ];
+// ===== 캐릭터 카드 틀 (인물 기록 · 괴이 기록 공통) =====
+const GRADE_MARK={'소재급':'材','중재급':'中','대재급':'大','천재급':'天','무상급':'無'};
+const splitKw=s=>String(s==null?'':s).split(' · ').map(x=>x.trim()).filter(Boolean);
+const escHtml=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function el(tag,cls,html){const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e}
+function personView(p){
+ const parts=p[4].split(' · ');const grade=parts.length>1?parts[parts.length-1]:'';const role=parts.length>1?parts.slice(0,-1).join(' · '):p[4];
+ const age=/^\d+$/.test(p[6])?p[6]+'세':'나이 불명';const type=splitKw(p[7]);
+ return {kind:'person',panel:'인물 상세 기록',unit:'인물',aff:p[1],role,name:p[3],grade,country:p[5],age,image:'images/characters/'+p[12],
+  meta:[role,age,p[5]].join(' · '),lead:splitKw(p[11])[0]||'',skills:splitKw(p[11]),looks:splitKw(p[10]),traits:splitKw(p[8]),notes:splitKw(p[9]),type,tags:[type[0],type[2]].filter(Boolean)};
+}
+function anomalyView(a){
+ return {kind:'anomaly',panel:'괴이 상세 기록',unit:'괴이',aff:'네임드 괴이',name:a.name,grade:a.grade,country:a.country,image:'',
+  meta:a.grade,lead:a.summary,summary:a.summary,areas:splitKw(a.country),tags:splitKw(a.country)};
+}
+function ccMedia(v,onFail){
+ const emblem=()=>el('div','cc-emblem',escHtml(v.name.slice(0,1)));
+ if(!v.image)return emblem();
+ const img=new Image();img.className='cc-img';img.alt=v.name+' 인물 이미지';img.loading='lazy';
+ img.onerror=()=>{img.replaceWith(emblem());if(onFail)onFail()};img.src=v.image;return img;
+}
+function buildCard(v){
+ const card=el('article','cc-card');card.tabIndex=0;card.setAttribute('role','button');card.setAttribute('aria-label',v.name+' 상세 기록 열기');card._cc=v;
+ const thumb=el('div','cc-thumb');thumb.append(ccMedia(v));
+ const top=v.grade==='천재급'||v.grade==='무상급';
+ const body=el('div','cc-body',
+  `<div class="cc-top"><span class="cc-aff">${escHtml(v.aff)}</span><span class="cc-badge${top?' is-top':''}" title="${escHtml(v.grade)}">${escHtml(GRADE_MARK[v.grade]||'')}</span></div>`+
+  `<h5 class="cc-name">${escHtml(v.name)}</h5><p class="cc-meta">${escHtml(v.meta)}</p>`+
+  (v.lead?`<p class="cc-lead"><span>${escHtml(v.lead)}</span></p>`:'')+
+  `<div class="cc-foot">${v.tags.map(t=>`<span class="cc-tag">${escHtml(t)}</span>`).join('')}</div>`);
+ card.append(thumb,body);
+ card.addEventListener('click',()=>openCc(card));
+ card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openCc(card)}});
+ return card;
+}
+let ccModal=null,ccItems=[],ccIdx=0;
+function ccEnsure(){
+ if(ccModal)return ccModal;
+ ccModal=el('div','cc-modal');ccModal.hidden=true;ccModal.setAttribute('role','dialog');ccModal.setAttribute('aria-modal','true');ccModal.setAttribute('aria-label','상세 기록');
+ ccModal.innerHTML='<div class="cc-backdrop" data-cc-close></div><div class="cc-panel"><div class="cc-panel-head"><span class="cc-kind"></span><button type="button" class="cc-close" data-cc-close aria-label="닫기">✕</button></div><div class="cc-scroll"></div></div>';
+ document.body.append(ccModal);
+ ccModal.addEventListener('click',e=>{if(e.target.closest('[data-cc-close]'))return closeCc();const n=e.target.closest('[data-cc-step]');if(n&&!n.disabled)stepCc(+n.dataset.ccStep)});
+ document.addEventListener('keydown',e=>{
+  if(ccModal.hidden)return;
+  if(e.key==='Escape')closeCc();else if(e.key==='ArrowLeft')stepCc(-1);else if(e.key==='ArrowRight')stepCc(1);
+  else if(e.key==='Tab'){const f=$$('button:not(:disabled)',ccModal);if(!f.length)return;const first=f[0],last=f[f.length-1];
+   if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}
+ });
+ return ccModal;
+}
+const kwList=a=>`<ul class="cc-list">${a.map(x=>`<li>${escHtml(x)}</li>`).join('')}</ul>`;
+const kwChips=a=>`<div class="cc-chips">${a.map(x=>`<span>${escHtml(x)}</span>`).join('')}</div>`;
+const ccSec=(title,arr,fn)=>arr&&arr.length?`<section class="cc-sec"><h3>${title}</h3>${fn(arr)}</section>`:'';
+function renderCc(){
+ const card=ccItems[ccIdx],v=card._cc,m=ccEnsure(),box=$('.cc-scroll',m);
+ $('.cc-kind',m).textContent=v.panel;
+ const isP=v.kind==='person';
+ const head=`<div class="cc-title-row"><div><div class="cc-aff-line">${escHtml(isP?v.aff+' · '+v.role:v.aff)}</div><h2>${escHtml(v.name)}</h2><p class="cc-meta">${escHtml(isP?v.country+' · '+v.age:v.country)}</p></div><div class="cc-big-grade"><b>${escHtml(GRADE_MARK[v.grade]||'')}</b><small>${escHtml(v.grade)}</small></div></div>`;
+ const cap=isP?`<div class="cc-figcap"><span>인물 이미지</span><a href="${escHtml(v.image)}" target="_blank" rel="noopener">원본 이미지 ↗</a></div>`:'';
+ const feat=isP?(v.skills.length?`<div class="cc-feature"><small>주령기 · 권능</small><strong>${escHtml(v.skills.join(' · '))}</strong></div>`:''):`<div class="cc-feature"><small>개요</small><strong>${escHtml(v.summary)}</strong></div>`;
+ const secs=isP?ccSec('외형',v.looks,kwList)+ccSec('성격',v.traits,kwChips)+ccSec('특징과 이야기',v.notes,kwList)+ccSec('성향 분류',v.type,kwChips):ccSec('출현 권역',v.areas,kwChips);
+ const n=String(ccItems.length).padStart(2,'0');
+ const nav=`<nav class="cc-nav"><button type="button" data-cc-step="-1"${ccIdx===0?' disabled':''}>← 이전 ${v.unit}</button><span class="cc-count">${String(ccIdx+1).padStart(2,'0')} / ${n}</span><button type="button" data-cc-step="1"${ccIdx===ccItems.length-1?' disabled':''}>다음 ${v.unit} →</button></nav>`;
+ box.innerHTML=head+'<figure class="cc-figure"></figure>'+cap+feat+secs+nav;
+ const link=$('.cc-figcap a',box);$('.cc-figure',box).append(ccMedia(v,()=>{if(link)link.hidden=true}));
+ box.scrollTop=0;
+}
+function openCc(card){
+ const host=card.closest('.personnel-groups')||document;
+ ccItems=$$('.cc-card',host).filter(c=>!c.closest('[hidden]'));ccIdx=Math.max(0,ccItems.indexOf(card));
+ const m=ccEnsure();renderCc();m.hidden=false;document.body.classList.add('cc-lock');$('.cc-close',m).focus({preventScroll:true});
+}
+function stepCc(d){const i=ccIdx+d;if(i<0||i>=ccItems.length)return;ccIdx=i;renderCc()}
+function closeCc(){
+ if(!ccModal||ccModal.hidden)return;ccModal.hidden=true;document.body.classList.remove('cc-lock');
+ const c=ccItems[ccIdx];if(c&&c.isConnected)c.focus();
+}
 const groups={director:['관리국장','DIRECTORATE'],division1:['제1대응단','FIRST RESPONSE DIVISION'],division2:['제2관리단','SECOND ADMINISTRATION DIVISION'],division3:['제3정보단','THIRD INTELLIGENCE DIVISION'],audit:['감사위원회','AUDIT COMMITTEE'],special:['특수방위별원','SPECIAL DEFENSE UNIT']};let activePeople='all';
-function renderPeople(){const host=$('#personnelGroups');host.innerHTML='';(activePeople==='all'?Object.keys(groups):[activePeople]).forEach(key=>{const data=people.filter(p=>p[0]===key);if(!data.length)return;const sec=document.createElement('section');sec.className='person-group';const hd=document.createElement('header');hd.className='person-group-head';hd.innerHTML=`<div><small>${groups[key][1]}</small><h3>${groups[key][0]}</h3></div>`;sec.append(hd);[...new Set(data.map(p=>p[2]))].forEach(unit=>{const sub=document.createElement('div');sub.className='person-subgroup';const h=document.createElement('h4');h.textContent=unit;sub.append(h);const grid=document.createElement('div');grid.className='person-cards';data.filter(p=>p[2]===unit).forEach(p=>{const card=document.createElement('article');card.className='person-card';const img=document.createElement('img');img.className='person-photo';img.src='images/characters/'+p[12];img.alt=p[3]+' 인물 이미지';img.loading='lazy';img.onerror=()=>{const f=document.createElement('div');f.className='person-photo fallback';f.textContent=p[3].slice(0,1);img.replaceWith(f)};const info=document.createElement('div');info.className='person-info';info.innerHTML=`<small>${p[5]} · ${p[6]}세 · ${p[7]}</small><h5>${p[3]}</h5><div class="person-role">${p[4]}</div><p>${p[8]} · ${p[9]}</p><p class="person-detail">외형: ${p[10]}</p><p class="person-detail">주령기·권능: ${p[11]}</p>`;card.append(img,info);grid.append(card)});sub.append(grid);sec.append(sub)});host.append(sec)})}renderPeople();$$('#personFilters .filter-btn').forEach(b=>b.addEventListener('click',()=>{$$('#personFilters .filter-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');activePeople=b.dataset.group;renderPeople()}));
+function renderPeople(){const host=$('#personnelGroups');host.innerHTML='';(activePeople==='all'?Object.keys(groups):[activePeople]).forEach(key=>{const data=people.filter(p=>p[0]===key);if(!data.length)return;const sec=document.createElement('section');sec.className='person-group';const hd=document.createElement('header');hd.className='person-group-head';hd.innerHTML=`<div><small>${groups[key][1]}</small><h3>${groups[key][0]}</h3></div>`;sec.append(hd);[...new Set(data.map(p=>p[2]))].forEach(unit=>{const sub=document.createElement('div');sub.className='person-subgroup';const h=document.createElement('h4');h.textContent=unit;sub.append(h);const grid=document.createElement('div');grid.className='cc-grid';data.filter(p=>p[2]===unit).forEach(p=>{grid.append(buildCard(personView(p)))});sub.append(grid);sec.append(sub)});host.append(sec)})}renderPeople();$$('#personFilters .filter-btn').forEach(b=>b.addEventListener('click',()=>{$$('#personFilters .filter-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');activePeople=b.dataset.group;renderPeople()}));
 const ids=['home','agency-overview','organization','response','phenomena','positions','personnel','anomalies'];const observer=new IntersectionObserver(entries=>{const v=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(!v)return;$$('.nav-link').forEach(a=>a.classList.toggle('active',a.dataset.nav===v.target.id));$('#crumb').textContent=v.target.id.toUpperCase()},{rootMargin:'-18% 0px -65% 0px',threshold:[0,.15,.35]});ids.forEach(id=>{const el=document.getElementById(id);if(el)observer.observe(el)});
 
 
@@ -53,14 +130,8 @@ function renderAnomalies(){
   head.innerHTML=`<div><small>THREAT CLASS / 0${index+1}</small><h3>${grade}</h3></div>`;
   section.append(head);
   const sub=document.createElement('div');sub.className='person-subgroup';
-  const grid=document.createElement('div');grid.className='person-cards';
-  list.forEach(a=>{
-   const card=document.createElement('article');card.className='person-card';
-   const emblem=document.createElement('div');emblem.className='person-photo fallback';emblem.textContent=a.name.slice(0,1);
-   const info=document.createElement('div');info.className='person-info';
-   info.innerHTML=`<small>ANOMALOUS ENTITY · ${a.country}</small><h5>${a.name}</h5><div class="person-role">${a.grade}</div><p>${a.summary}</p>`;
-   card.append(emblem,info);grid.append(card);
-  });
+  const grid=document.createElement('div');grid.className='cc-grid';
+  list.forEach(a=>{grid.append(buildCard(anomalyView(a)))});
   sub.append(grid);section.append(sub);host.append(section);
  });
  applyAnomalyFilter('all');
