@@ -7,6 +7,7 @@
   <meta name="description" content="괴이재난관리국 내부 데이터베이스 — 조직, 대응 체계, 초자연 현상 기록">
   <title>괴이재난관리국 | 중앙 데이터베이스</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="character-cards.css">
 </head>
 <body>
   <div class="app-shell">
@@ -121,7 +122,7 @@
         <div class="concept-grid">
           <article class="concept-card"><span>異</span><small>CONCEPT / 01</small><h3>괴이</h3><p>초자연적인 현상을 일으켜, 인간에게 피해를 주는 존재들.</p></article>
           <article class="concept-card"><span>靈</span><small>CONCEPT / 02</small><h3>협력영물</h3><p>괴이 중 관리국과 우호적인 관계를 맺고 협력하는 존재들.</p></article>
-          <article class="concept-card"><span>呪</span><small>CONCEPT / 03</small><h3>주령기</h3><p>인간들의 특수한 영능력을 구현해주는 매개체. 신체 부위 또는 도구의 형태이다.</p></article>
+          <article class="concept-card"><span>呪</span><small>CONCEPT / 03</small><h3>주령기</h3><p>인간들이 특수한 영능력을 구현할 수 있게 만드는 매개체. 신체 부위 또는 도구의 형태이다.</p></article>
           <article class="concept-card"><span>權</span><small>CONCEPT / 04</small><h3>권능</h3><p>존재에 귀속된 초월적 능력. 괴이와 협력영물은 기본 소유하며, 인간은 주령기를 오래 사용하거나 깨달음을 얻으면 획득 할 수 있다.</p></article>
         </div>
       </section>
@@ -135,21 +136,21 @@
           <article><b>03</b><div><h3>과장 · 수사관</h3><small>지휘등급</small></div><p>실무 독립 권한</p></article>
           <article><b>04</b><div><h3>단장 · 위원장</h3><small>운영등급</small></div><p>직속 하위조직 총괄 관리</p></article>
           <article><b>05</b><div><h3>관리국장</h3><small>최고등급</small></div><p>최고 결정 · 최종 결재 · 단장과 위원장 관리</p></article>
-          <article class="position-spirit"><b>靈</b><div><h3>협력영물</h3><small>특수등급</small></div><p>괴이 자문 · 현장 투입</p></article>
+          <article class="position-spirit"><b>靈</b><div><h3>협력영물</h3><small>특수등급</small></div><p>괴이 자문 · 고위험 현장 투입</p></article>
         </div>
       </section>
       <section class="content-section" id="personnel">
-        <div class="section-heading"><div><div class="eyebrow">06 / PERSONNEL ARCHIVE</div><h2>인물 기록</h2><p>소속을 선택하면 해당 조직의 인물과 직위를 확인할 수 있다.</p></div><span class="section-index">ADB / 06</span></div>
+        <div class="section-heading"><div><div class="eyebrow">06 / PERSONNEL ARCHIVE</div><h2>인물 기록</h2><p>소속을 선택하여, 해당 조직의 인물과 직위를 확인.</p></div><span class="section-index">ADB / 06</span></div>
         <div class="person-filter" id="personFilters"><button class="filter-btn active" data-group="all">전체</button><button class="filter-btn" data-group="director">관리국장</button><button class="filter-btn" data-group="division1">제1대응단</button><button class="filter-btn" data-group="division2">제2관리단</button><button class="filter-btn" data-group="division3">제3정보단</button><button class="filter-btn" data-group="audit">감사위원회</button><button class="filter-btn" data-group="special">특수방위별원</button></div>
         <div class="personnel-groups" id="personnelGroups"></div>
-        <p class="image-help">이미지 추가: <code>images/characters/</code> 폴더에 이미지 파일을 넣고 script.js의 해당 인물 file 값을 실제 파일명으로 변경한다. 이미지가 없으면 인장형 대체 화면이 표시된다.</p>
+        <p class="image-help">【열람 제한】 <code>⚠️</code>본 기록은 관리국 내부 자료로 분류되어 허가받지 않은 자의 열람과 외부 유출을 엄금한다. 위반 시 관련 규정에 따라 엄중히 처리한다.</p>
       </section>
 
       <section class="content-section alt-section" id="anomalies">
-        <div class="section-heading"><div><div class="eyebrow">07 / ANOMALOUS ENTITY ARCHIVE</div><h2>괴이 기록</h2><p>확인된 네임드 괴이를 위험등급별로 분류한 개체 기록</p></div><span class="section-index">ADB / 07</span></div>
+        <div class="section-heading"><div><div class="eyebrow">07 / ANOMALOUS ENTITY ARCHIVE</div><h2>괴이 기록</h2><p>확인된 괴이들을 위험등급별로 분류한 기록</p></div><span class="section-index">ADB / 07</span></div>
         <div class="person-filter" id="anomalyFilters"><button type="button" class="filter-btn active" data-grade="all" aria-pressed="true">전체</button><button type="button" class="filter-btn" data-grade="소재급" aria-pressed="false">소재급</button><button type="button" class="filter-btn" data-grade="중재급" aria-pressed="false">중재급</button><button type="button" class="filter-btn" data-grade="대재급" aria-pressed="false">대재급</button><button type="button" class="filter-btn" data-grade="천재급" aria-pressed="false">천재급</button><button type="button" class="filter-btn" data-grade="무상급" aria-pressed="false">무상급</button></div>
         <div class="personnel-groups" id="anomalyGroups"></div>
-        <p class="image-help">네임드 괴이의 외형·능력 상세 묘사는 별도 기록 &lt;kb&gt; 확인 후에만 가능하다. 이 페이지에는 제공된 자료의 개요만 표시한다.</p>
+        <p class="image-help"> 【열람 주의】 본 기록에는 괴이의 실체 및 초자연 현상에 관한 위험 정보가 포함되어 있다. 열람자는 반드시 규정을 위반해서는 안 된다. 위반으로 발생한 피해는 열람자 본인의 책임으로 간주한다.</p>
       </section>
 
       <footer class="footer">
